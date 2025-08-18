@@ -5,6 +5,8 @@ import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+joblib.parallel_backend("threading")
+
 
 def add_url_features(X):
     df_temp = pd.DataFrame({"url": X})
