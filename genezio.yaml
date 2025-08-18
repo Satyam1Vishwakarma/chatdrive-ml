@@ -14,7 +14,7 @@ backend:
     # The package manager used by the backend.
     packageManager: pip
     # The runtime to use for your FastAPI app.
-    runtime: python3.11.13
+    runtime: python3.11.x
   # Information about the backend's functions.
   functions:
     # The name (label) of the function.
