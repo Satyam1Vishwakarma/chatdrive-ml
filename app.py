@@ -4,6 +4,7 @@ import joblib
 import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
 
 joblib.parallel_backend("threading")
 
@@ -18,14 +19,16 @@ def add_url_features(X):
     df_temp["hyphen_count"] = df_temp["url"].str.count("-")
     return df_temp[["https","length","num_digits","dots","at_symbol","hyphen_count"]]
 
-# Load model
-model = joblib.load("./url_model.pkl")
 
 # Request schema
 class UrlRequest(BaseModel):
     url: str
 
 app = FastAPI()
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+model = joblib.load("static/url_model.pkl")
 
 @app.post("/predict")
 def predict(data: UrlRequest):
