@@ -6,8 +6,6 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
 
-joblib.parallel_backend("threading")
-
 
 def add_url_features(X):
     df_temp = pd.DataFrame({"url": X})
@@ -28,7 +26,7 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-model = joblib.load("static/url_model.pkl")
+model = joblib.load("static/Hurl_model.pkl")
 
 @app.post("/predict")
 def predict(data: UrlRequest):
