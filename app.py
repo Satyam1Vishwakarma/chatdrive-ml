@@ -1,10 +1,11 @@
-import pandas as pd
-import uvicorn
 import os
 import joblib
+import uvicorn
+import pandas as pd
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 
 
 def add_url_features(X):
@@ -23,6 +24,15 @@ class UrlRequest(BaseModel):
     url: str
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or ["http://localhost:3000"] for specific frontend
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
