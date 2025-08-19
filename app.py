@@ -36,4 +36,4 @@ def predict(data: UrlRequest):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))  # Render sets PORT dynamically
-    uvicorn.run(app, host="0.0.0.0", port=port, reload=False)
+    uvicorn.run(app, host="0.0.0.0", port=port, reload=False,loop="uvloop",http="httptools")
